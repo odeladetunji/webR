@@ -21,7 +21,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false })); // urlencoded form parser
 app.use(bodyParser.json())  // json parser
-app.use(cors());
+app.use(cors("*"));
 
 // route pointer
 // app.use('/', LetsChat);
