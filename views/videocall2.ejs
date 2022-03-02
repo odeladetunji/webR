@@ -162,7 +162,15 @@
     <script type="text/javascript">
 
         // $( document ).ready(function() {
-        var socket = io();
+        var socket = io('http://67.205.175.21', {
+            reconnectionDelay: 1000,
+            reconnection: true,
+            reconnectionAttemps: 10,
+            transports: ['websocket'],
+            agent: false,
+            upgrade: false,
+            rejectUnauthorized: false
+        });
 
         let data = {};
         data.recipientEmail = "john";
