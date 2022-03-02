@@ -1,0 +1,43 @@
+* {
+  border: border-box;
+  font-family: verdana;
+  background-color: black;
+  padding: 0px;
+}
+
+body {
+  background-color: black;
+}
+
+.chat {
+  width: 100%;
+  background-color: transparent;
+}
+
+.chatInput {
+   border: 2px solid blue;
+   color: white;
+   font-weight: bold;
+   font-size: 20px;
+   padding: 20px;
+   width: 70%;
+   border-radius: 5px;
+   background-color: transparent;
+   margin-left: 15%;
+   margin-top: 500px;
+}
+
+h1 {
+  color: white;
+  margin-left: 15%;
+  padding-top: 30px;
+}
+
+.incommingMessage {
+  font-weight: bold;
+  color: white;
+  padding: 10px;
+  margin-left: 15%;
+  background-color: green;
+  margin-bottom: 10px;
+}

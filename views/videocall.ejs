@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <base href="http://localhost:9001">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+       <style>
+
+           * {
+               /* background-color: black; */
+               padding: 0px;
+               margin: 0px;
+           }
+ 
+           /* .homepage {
+              width: 100%;
+              height: 1200px;
+              background-color: rgb(29, 27, 27);
+              position: fixed;
+           }
+
+           #firstPerson {
+               background-color: red;
+               color: white;
+               float: right;
+               font-size: 30px;
+               padding: 10px;
+               border-radius: 40px;
+
+               margin-right: 20px;
+               border: 1px solid white;
+               cursor: pointer;
+               margin-top: 20px;
+           }
+
+           #secondPerson {
+               border: 1px solid white;
+               padding: 20px;
+               font-size: 200px;
+               margin-left: 40%;
+               border-radius: 50px;
+               color: white;
+               margin-top: 300px;
+           } */
+
+           .homepage {
+               display: flex;
+               flex-wrap: nowrap;
+               position: fixed;
+               width: 100%;
+           }
+
+           .caller {
+               width: 50%;
+               height: 1200px;
+               background-color: black;
+               /* background-color: rgb(29, 27, 27);
+                */
+               /* border-right: none; */
+               padding-top: 300px;
+           }
+
+           .caller i {
+               color: white;
+               font-size: 40px;
+           }
+
+           .recipient {
+               width: 50%;
+               height: 1200px;
+               background-color: rgb(29, 27, 27);
+               background-color: black;
+               /* border-left: 2px solid green; */
+               /* background-color: hsl(270, 3%, 12%); */
+               
+           }
+
+           .caller #firstPerson {
+               border: 1px solid white;
+               padding: 20px;
+               font-size: 200px;
+               margin-left: 30%;
+               border-radius: 50px;
+           }
+
+           .recipient #secondPerson {
+               border: 1px solid white;
+               padding: 20px;
+               font-size: 200px;
+               margin-left: 30%;
+               border-radius: 50px;
+               /* margin-top: ; */
+               color: white;
+               margin-top: 300px;
+           }
+
+           #phone {
+               background-color: green;
+               color: black;
+               float: right;
+               font-size: 30px;
+               padding: 20px;
+               border-radius: 40px;
+               margin-top: 20px;
+               margin-right: 20px;
+               border: 1px solid white;
+               cursor: pointer;
+           }
+
+           #myVideo {
+               position: absolute;
+               z-index: 2;
+               bottom: 10px;
+               right: 10px;
+               width: 320px;
+               height: 240px;
+               background-color: black;
+           }
+
+           #rightVideo {
+               top: 150px;
+               position: fixed;
+               width: 704px;
+               height: 544px;
+               background-color: black;
+           }
+
+           #leftVideo {
+               position:fixed;
+               top: 150px;
+               width: 704px;
+               height: 544px;
+               background-color: black;
+           }
+           
+
+       </style>
+
+    </head>
+    <body>
+      <!-- <div class="homepage">
+            <i class="material-icons md-18" id="firstPerson">cancellcall</i>
+            <i class="material-icons md-18" id="secondPerson">person</i>
+      </div>
+      <video id="myVideo" autoplay playsinline controls="false" width="320" height="240"></video> -->
+
+      <div class="homepage">
+        <div class="caller">
+           <!-- <i class="material-icons md-18" id="firstPerson">person</i> -->
+           <video id="leftVideo" autoplay playsinline controls="false" width="320" height="240"></video>
+        </div>
+        <div class="recipient">
+          <!-- <i class="material-icons md-18" id="phone">phone</i>
+          <i class="material-icons md-18" id="secondPerson">person</i> -->
+          <video id="rightVideo" autoplay playsinline controls="false" width="320" height="240"></video>
+        </div>
+    </div>
+    </body>
+    <!-- <script src="/socket.io/socket.io.js"></script> -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+    <!-- <script type="text/javascript">
+        window.onload = function() {
+           let xhr = new XMLHttpRequest();
+           xhr.onreadystatechange = function($evt){
+              if(xhr.readyState == 4 && xhr.status == 200){
+                  let res = JSON.parse(xhr.responseText);
+                  console.log("response: ",res);
+              }
+           }
+           xhr.open("PUT", "https://global.xirsys.net/_turn/motherhonestlydev", true);
+           xhr.setRequestHeader ("Authorization", "Basic " + btoa("MotherHonestly:7df13afc-96c0-11ec-8ff1-0242ac130002") );
+           xhr.setRequestHeader ("Content-Type", "application/json");
+           xhr.send( JSON.stringify({"format": "urls"}) );
+        }
+    </script> -->
+
+    <script type="text/javascript">
+
+        // $( document ).ready(function() {
+        var socket = io();
+
+        let data = {};
+        // data.recipientEmail = "john";
+        data.callerEmail = "smith";
+        socket.emit("connect-to-chat-server", data);
+        
+    //    function sendPrivateMessage(){
+
+    //       var element = document.getElementById("textInput");
+    //       var value = element.value;
+
+    //       var chat = {
+    //           reciever_id: 2, 
+    //           sender_id: 1, 
+    //           message: value, 
+    //           audio_message: null,
+    //           image: null,
+    //           mime_type: null,
+    //           isText: true, 
+    //           isPicture: false, 
+    //           isAudio: false
+    //       }
+
+    //       socket.emit("private-message", chat);
+            
+    //     }
+
+    //     socket.on("incoming-private-message", function(data, callback){
+    //         console.log(data);
+    //     });
+
+    //     var element = document.getElementById("submit");
+    //     element.addEventListener("click", sendPrivateMessage)
+
+        // ///////Media Device/////////////////////
+        // async function getConnectedDevices(type) {
+        //      const devices = await navigator.mediaDevices.enumerateDevices();
+        //      return devices.filter(device => device.kind === type)
+        // }
+
+        // // Open camera with at least minWidth and minHeight capabilities
+        // async function openCamera(cameraId, minWidth, minHeight) {
+        //     const constraints = {
+        //         'audio': {'echoCancellation': true},
+        //         'video': {
+        //         'deviceId': cameraId,
+        //         'width': {'min': minWidth},
+        //         'height': {'min': minHeight}
+        //         }
+        //     }
+
+        //     return await navigator.mediaDevices.getUserMedia(constraints);
+        // }
+
+        // // const cameras = getConnectedDevices('videoinput');
+        // // if (cameras && cameras.length > 0) {
+        // //     // Open first available video camera with a resolution of 1280x720 pixels
+        // //     const stream = openCamera(cameras[0].deviceId, 1280, 720);
+        // // }
+ 
+        // async function playVideoFromCamera() {
+        //     try {
+        //            const stream;
+        //            const cameras = getConnectedDevices('videoinput');
+        //            if (cameras && cameras.length > 0) {
+        //            // Open first available video camera with a resolution of 1280x720 pixels
+        //               stream = openCamera(cameras[0].deviceId, 1280, 720);
+        //            }
+        //            const videoElement = document.querySelector('video#myVideo');
+        //            videoElement.srcObject = stream;
+        //     } catch(error) {
+        //            console.error('Error opening video camera.', error);
+        //     }
+        // }
+        // //Make a Call.
+        
+        // function checkIfCorrespondentIsOnline(){ // recursive function call.
+        //      if(!recipientIsOnline){
+        //           data.recipientIsOnline = false;
+        //           socket.emit("checkIfRecipientIsOnline", data);
+        //           checkIfCorrespondentIsOnline();
+        //      }else{ makeACall() }
+        // }
+        
+        let serverResponse = null;
+        function fetchIceServers(){
+
+           let xhr = new XMLHttpRequest();
+           xhr.onreadystatechange = function($evt){
+              if(xhr.readyState == 4 && xhr.status == 200){
+                  let res = JSON.parse(xhr.responseText);
+                //   var iceServers = []
+                //   var turnOrStunUrl = {}
+                //   for(var i=0; i<=res.v.iceServers.urls.length; i++){
+                //       turnOrStunUrl.urls = res.v.iceServers.urls[i];
+                //       turnOrStunUrl.username = res.v.iceServers.username;
+                //       turnOrStunUrl.credential = res.v.iceServers.credential;
+                //       iceServers.push(turnOrStunUrl);
+                //       turnOrStunUrl = {};
+                //   }
+
+                //   let turnUrl = [];
+                //   turnUrl.push(res.v.iceServers.urls[4])
+                //   turnUrl.push(res.v.iceServers.urls[5])
+                //   res.v.iceServers.urls = turnUrl;
+                  serverResponse = res.v.iceServers
+
+                  var data = {
+                      serverResponse: serverResponse,
+                      recipientEmail: "john"
+                  }
+
+                  socket.emit("turnserverFound", data);
+                  makeACall();
+              }
+           }
+
+           xhr.open("PUT", "https://es.xirsys.com/_turn/motherhonestlydev", true);
+           xhr.setRequestHeader ("Authorization", "Basic " + btoa("MotherHonestly:7df13afc-96c0-11ec-8ff1-0242ac130002") );
+           xhr.setRequestHeader ("Content-Type", "application/json");
+           xhr.send( JSON.stringify({"format": "urls"}) );
+        }
+
+        // let serverResponse = null;
+        // function fetchIceServers(){
+        //     const myInit = {
+        //         method: 'GET',
+        //         cache: 'default'
+        //     };
+
+        //     fetch("http://127.0.0.1:9001/webrtctokens", myInit)
+        //     .then(function(response) {
+        //         if (!response.ok) {
+        //             // throw new Error(`HTTP error! status: ${response.status}`);f
+        //             fetchIceServers();
+        //         }
+        //         return response.json();
+        //     }).then(function(response) {
+        //         serverResponse = response;
+        //         console.log(serverResponse);
+        //         makeACall();
+        //     });
+        // }
+
+        let onlineStatus = false;
+        function fetchOnlineStatus(){
+          if(!onlineStatus){
+            const myInit = {
+                method: 'GET',
+                cache: 'default'
+            };
+
+            fetch("http://127.0.0.1:9001/onlineStatus?id=john", myInit)
+            .then(function(response) {
+                if (!response.ok) {
+                    // throw new Error(`HTTP error! status: ${response.status}`);f
+                    fetchOnlineStatus();
+                }
+                return response.json();
+            }).then(function(response) {
+                if(response){
+                    onlineStatus = true;
+                    fetchIceServers();
+                }else { 
+                    console.log(response)
+                    console.log("Online Status is false");
+                    onlineStatus = false;
+                }
+                // console.log(serverResponse);
+            });
+            }
+        }
+
+        fetchOnlineStatus();
+        // let recipientIsOnline = false;
+        // data.recipientIsOnline = false;
+        // // data.recipientEmail = "john";
+        // socket.emit("checkIfRecipientIsOnline", data);
+
+        // socket.on("recipientIsOnline", function(data, callback){
+        //     console.log("recipientIsOnline was triggered")
+        //     if(data.recipientIsOnline){
+        //         fetchIceServers();
+        //     }else {
+        //         socket.emit("checkIfRecipientIsOnline", data);
+        //     }
+        // });
+
+        // fetchIceServers();
+
+        let configuration = null;
+        let peerConnection = null;
+
+        async function makeACall(recipientEmail){
+            //get media streaqm
+
+            console.log(serverResponse);
+            configuration = { iceServers: [
+                serverResponse 
+            ], iceCandidatePoolSize: 10}
+            console.log(configuration);
+
+            peerConnection = new RTCPeerConnection(configuration);
+
+            playVideoFromCamera();
+            
+
+            ///Listen for Answers 
+            socket.on("webRTCAnswer", async function(data, callback){
+                if(data.recipientEmail == "john" && data.isWebRTCAnswer == true){
+                      console.log(data)
+                      const remoteDescription = new RTCSessionDescription(data.webRTCAnswer);
+                      await peerConnection.setRemoteDescription(remoteDescription);
+                }
+
+                console.log("Answer was sent")
+
+            });
+
+        
+            const offer = await peerConnection.createOffer();
+            await peerConnection.setLocalDescription(offer);
+
+            console.log(peerConnection.iceConnectionState);
+            peerConnection.addEventListener('icegatheringstatechange', event => {
+                console.log(event.iceConnectionState);
+            })
+
+            peerConnection.addEventListener("icecandidateerror", (event) => {
+                if (event.errorCode === 701) {
+                    console.log(event.url);
+                    console.log(event.errorText)
+                }
+            });
+
+            peerConnection.addEventListener('onicecandidate', (event) => {
+                        console.log("Ice candidate was found")
+                         if(event.candidate){
+                             data.recipientEmail = "john"
+                             data.iceCandidate = event.candidate;
+                             socket.emit("new-ice-candidate-remote", data)
+                         }
+            });
+
+            console.log("listening for ice candidate");
+            
+            data.isWebRTCOffer = true;
+            data.webRTCOffer = offer;
+            data.isWebRTCAnswer = false;
+            data.webRTCAnswer = null;
+            data.recipientEmail = "john";
+            
+            //sending out offer
+            socket.emit("webRTCOffer", data);  
+            console.log(data)
+            //Add remote Ice Candidate
+            socket.on("new-ice-candidate-found-on-remote-local", async function(data, callback){
+                if(data.iceCandidate && data.recipientEmail == "john"){
+                    console.log("ice candidate was sent to john")
+                    try{
+                        await peerConnection.addIceCandidate(data.iceCandidate);
+                    }catch(exception){
+                        console.log("Error adding incoming ice-candidate - local", exception);
+                    }
+                }
+            })
+        }
+
+    // });
+
+     ///////Media Device/////////////////////
+        async function getConnectedDevices(type) {
+             const devices = await navigator.mediaDevices.enumerateDevices();
+             return devices.filter(device => device.kind === type)
+        }
+
+        // Open camera with at least minWidth and minHeight capabilities
+        async function openCamera(cameraId, minWidth, minHeight) {
+            const constraints = {
+                // 'audio': {'echoCancellation': true},
+                'audio': false,
+                'video': {
+                'deviceId': cameraId,
+                'width': {'min': minWidth},
+                'height': {'min': minHeight}
+                }
+            }
+
+            console.log(cameraId)
+            return await navigator.mediaDevices.getUserMedia(constraints);
+        }
+
+        // const cameras = getConnectedDevices('videoinput');
+        // if (cameras && cameras.length > 0) {
+        //     // Open first available video camera with a resolution of 1280x720 pixels
+        //     const stream = openCamera(cameras[0].deviceId, 1280, 720);
+        // }
+
+        async function playVideoFromCamera() {
+
+            try {
+                   var stream = null;
+                   const cameras = await getConnectedDevices('videoinput');
+                   console.log(cameras.length);
+                   if (cameras && cameras.length > 0) {
+                      stream = await openCamera(cameras[0].deviceId, 1280, 720);
+                      stream.getTracks().forEach(track => {
+                        peerConnection.addTrack(track, stream);
+                      });
+                   }
+                   const leftVideo = document.getElementById('leftVideo');
+                   const rightVideo = document.getElementById('rightVideo');
+                   rightVideo.srcObject = stream;
+
+                   peerConnection.addEventListener('track', async (event) => {
+                     const [remoteStream] = event.streams;
+                     leftVideo.srcObject = remoteStream;
+                   });
+
+            } catch(error) {
+                   console.error('Error opening video camera.', error);
+            }
+        }
+    </script>
+    
+</html>

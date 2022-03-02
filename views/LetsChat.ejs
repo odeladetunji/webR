@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>LetsChat</title>
+    <link href="/public/css/letschat.css" rel="stylesheet" type="text/css">
+    <style>
+
+    * {
+      border: border-box;
+      font-family: verdana;
+      background-color: black;
+      padding: 0px;
+    }
+
+    body {
+      background-color: black;
+    }
+
+    .chat {
+      width: 100%;
+      background-color: transparent;
+    }
+
+    #chatInput {
+       border: 2px solid green;
+       color: white;
+       font-weight: bold;
+       font-size: 20px;
+       padding: 20px;
+       width: 70%;
+       border-radius: 5px;
+       background-color: transparent;
+       margin-left: 15%;
+       margin-top: 250px;
+    }
+
+    h1 {
+      color: white;
+      margin-left: 15%;
+      padding-top: 30px;
+    }
+
+    .incommingMessage {
+      font-weight: bold;
+      color: white;
+      padding: 10px;
+      margin-left: 15%;
+      background-color: green;
+      margin-bottom: 10px;
+    }
+
+    .pTag {
+      width: 70%;
+      margin-left: 15%;
+      list-style-type: none;
+    }
+
+    .pTag li {
+      background-color: white;
+      color: white;
+      padding: 20px;
+      width: 100%;
+      margin-top: 5px;
+      background-color: green;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 20px;
+      text-align: right;
+    }
+
+    </style>
+  </head>
+  <body>
+    <h1>Lets Chat Server</h1>
+    <div class="chat">
+       <div>
+          <ul class="pTag">
+            <li id="first"></li>
+          </ul>
+       </div>
+       <input type="text" id="chatInput" onkeypress="submittingChat(event)">
+    </div>
+  </body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script>
+    var socket = io();
+    function submittingChat(event){
+      var input = document.getElementById("chatInput");
+
+      if(event.keyCode == 13){
+         if (input.value != ""){
+           // other parameters namely mood, category and identity should be supplied!
+           var data = {
+                        message : input.value.trim(),
+                        mood: null,
+                        category: null,
+                        identity: null
+           }
+           socket.emit("message", { message: data});
+         }
+      }
+    }
+
+    socket.on("incomming message", function(data, callback){
+       var elem = document.createElement("LI");
+       var theMessage = document.createTextNode(data.message.message);
+       var pTag = document.getElementsByClassName("pTag")[0];
+       var firstNode = document.getElementById("first");
+       
+       elem.appendChild(theMessage);
+       pTag.insertBefore(elem, firstNode);
+       console.log(data.message);
+    });
+
+    socket.on("everyone", function(data, callback){
+       console.log("... start messaging ... socket.io");
+    });
+
+  </script>
+</html>
