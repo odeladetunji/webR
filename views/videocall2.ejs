@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <base href="http://67.205.175.21/">
+        <base href="http://67.205.175.21/video">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
        <style>
 
@@ -162,15 +162,7 @@
     <script type="text/javascript">
 
         // $( document ).ready(function() {
-        var socket = io('http://67.205.175.21', {
-            reconnectionDelay: 1000,
-            reconnection: true,
-            reconnectionAttemps: 10,
-            transports: ['websocket'],
-            agent: false,
-            upgrade: false,
-            rejectUnauthorized: false
-        });
+        var socket = io();
 
         let data = {};
         data.recipientEmail = "john";
